@@ -14,9 +14,13 @@ void loop() {
 #define Chave_3 2
 #define Rele_1 12
 
+#define period_1 3000
+#define period_2 9000
+#define period_3 12000
+
 int passos = 32; //OLD - QUANTOS PASSOS O MOTOR É CAPAZ DE DAR POR VOLTA
+int i = 0;
 unsigned long time_now = 0;
-int period = 3000;
 
 Stepper mp(passos, 8, 9, 10, 11); // OLD - ???
 
@@ -64,13 +68,17 @@ void loop()
     //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
+    i = 0;
     for(;;){
-      if(millis() > time_now + period){
+      if(millis() > time_now + period_1){
               time_now = millis();
               Serial.println("Finalizando situação 1");
               break;
           }
-          Serial.println("Enchendo o Copo na situação 1\n");
+      if(i==0){
+        i = 1;
+        Serial.println("Enchendo o Copo na situação 1\n");
+      }
     }
     digitalWrite(Rele_1, LOW);
     aux = 1;
@@ -80,7 +88,18 @@ void loop()
     //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
-    delay(9000);
+    i = 0;
+    for(;;){
+      if(millis() > time_now + period_2){
+              time_now = millis();
+              Serial.println("Finalizando situação 2");
+              break;
+          }
+      if(i==0){
+        i = 1;
+        Serial.println("Enchendo o Copo na situação 2\n");
+      }
+    }
     digitalWrite(Rele_1, LOW);
     aux = 1;
     break;
@@ -89,7 +108,18 @@ void loop()
     //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
-    delay(9000);
+    i = 0;
+    for(;;){
+      if(millis() > time_now + period_3){
+              time_now = millis();
+              Serial.println("Finalizando situação 3");
+              break;
+          }
+      if(i==0){
+        i = 1;
+        Serial.println("Enchendo o Copo na situação 3\n");
+      }
+    }
     digitalWrite(Rele_1, LOW);
     aux = 1;
     break;
