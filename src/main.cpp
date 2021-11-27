@@ -67,10 +67,10 @@ void loop()
     for(;;){
       if(millis() > time_now + period){
               time_now = millis();
-              Serial.println("Enchendo o Copo na situação 1");
+              Serial.println("Finalizando situação 1");
               break;
           }
-          Serial.println("Enchendo o Copo na situação 1]n");
+          Serial.println("Enchendo o Copo na situação 1\n");
     }
     digitalWrite(Rele_1, LOW);
     aux = 1;
