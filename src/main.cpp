@@ -6,6 +6,7 @@
 #define Chave_3 2
 #define Rele_1 12
 #define Passos 32
+#define Speed 5
 
 #define Period_1 3000
 #define Period_2 9000
@@ -23,7 +24,7 @@ void setup()
 {
   pinMode(Rele_1, OUTPUT);
   digitalWrite(Rele_1, LOW);
-  mp.setSpeed(5); // OLD - VELOCIDADE DO MOTOR EM RPM
+  mp.setSpeed(Speed); // OLD - VELOCIDADE DO MOTOR EM RPM
   pinMode(Chave_1, INPUT_PULLUP);
   pinMode(Chave_2, INPUT_PULLUP);
   pinMode(Chave_3, INPUT_PULLUP);
@@ -75,8 +76,8 @@ int iniciar_bomba(int periodo,int tipo){
 //Recursividade
 void loop()
 {
-  mp.step(12); // OLD - PASSOS QUE O MOTOR VAI DAR
-  mp.setSpeed(5);
+  mp.step(11); // OLD - PASSOS QUE O MOTOR VAI DAR
+  mp.setSpeed(Speed);
 
   if(aux == 1)aux = verifica_precionado();
 
@@ -97,7 +98,7 @@ void loop()
     break;
   default:
     //Situação Padrão
-    mp.setSpeed(5);
+    mp.setSpeed(Speed);
     digitalWrite(Rele_1, LOW);
   }
 }
