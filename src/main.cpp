@@ -122,7 +122,6 @@ void loop()
     break;
   default:
     //Situação Padrão
-    mp.step(1);
     mp.setSpeed(5);
     digitalWrite(Rele_1, LOW);
   }
