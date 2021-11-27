@@ -102,7 +102,7 @@ void loop()
     break;
   case 3:
     //Situação 3
-    iniciar_bomba(Period_2, 2);
+    iniciar_bomba(Period_2, 3);
     aux = 1;
     break;
   default:
