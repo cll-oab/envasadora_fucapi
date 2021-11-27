@@ -36,8 +36,9 @@ int verificar_sensores(int aux)
 {
   //Usa o codicionador para determinar o estado das chaves e retornar o valor da situação
   return (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 1 : (
-         (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 2 : (
-         (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 3 : 0)
+         (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == HIGH && digitalRead(Chave_3) == LOW) ? 2 : (
+         (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == HIGH && digitalRead(Chave_3) == HIGH) ? 3 : (
+         (aux == 1 && digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH)? -1: 0)
          );
 }
 //Verifica se Chave esta precionada
@@ -83,6 +84,7 @@ void loop()
   mp.setSpeed(Speed);
 
   if(aux == 1){
+    Serial.println("Alguma Coisa Precionando os Botões");
     aux = verifica_precionado();
   }
   //Definir Casos de ação do ambinte
