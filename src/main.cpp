@@ -65,7 +65,6 @@ void loop()
   {
   case 1:
     //Situação 1
-    //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     i = 0;
@@ -85,7 +84,6 @@ void loop()
     break;
   case 2:
     //Situação 2
-    //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     i = 0;
@@ -105,7 +103,6 @@ void loop()
     break;
   case 3:
     //Situação 3
-    //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     i = 0;
