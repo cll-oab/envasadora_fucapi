@@ -6,7 +6,7 @@
 #define Chave_3 2
 #define Rele_1 12
 #define Passos 32
-#define Speed 5
+#define Speed 500
 
 #define Period_1 3000
 #define Period_2 9000
@@ -22,6 +22,7 @@ Stepper mp(Passos, 8, 9, 10, 11); // OLD - ???
 //Startup
 void setup()
 {
+  Serial.begin(9600);
   pinMode(Rele_1, OUTPUT);
   digitalWrite(Rele_1, LOW);
   mp.setSpeed(Speed); // OLD - VELOCIDADE DO MOTOR EM RPM
@@ -40,7 +41,7 @@ int verificar_sensores(int aux)
          );
 }
 //Verifica se Chave esta precionada
-void verifica_precionado()
+int verifica_precionado()
 {
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
 }
@@ -59,13 +60,15 @@ int iniciar_bomba(int periodo,int tipo){
     {
       //Para o loop e mostra msg de finalizado
       time_now = millis();
-      Serial.println("Finalizando situação ".tipo);
+      Serial.println("Finalizando situação ");
+      Serial.println(tipo);
       break;
     }
     //Usa variavel auxiliar para mostra a menssagem de enchendo apenas 1 vez
     if (i == 0){
       i = 1;
-      Serial.println("Enchendo o Copo na situação ".tipo."\n");
+      Serial.println("Enchendo o Copo na situação");
+      Serial.println(tipo);
     }
   }
   //Apos o For parar desliga a bomba
@@ -76,7 +79,7 @@ int iniciar_bomba(int periodo,int tipo){
 //Recursividade
 void loop()
 {
-  mp.step(11); // OLD - PASSOS QUE O MOTOR VAI DAR
+  mp.step(1); // OLD - PASSOS QUE O MOTOR VAI DAR
   mp.setSpeed(Speed);
 
   if(aux == 1){
