@@ -49,7 +49,7 @@ void verifica_precionado()
 //Recursividade
 void loop()
 {
-  mp.step(1); // OLD - PASSOS QUE O MOTOR VAI DAR
+  mp.step(5); // OLD - PASSOS QUE O MOTOR VAI DAR
 
   if(aux == 1)aux = verifica_precionado();
 
@@ -82,7 +82,7 @@ void loop()
     break;
   default:
     //Situação Padrão
-    mp.step(1);
+    mp.step(5);
     digitalWrite(Rele_1, LOW);
   }
 }
