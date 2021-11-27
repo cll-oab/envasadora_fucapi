@@ -52,7 +52,7 @@ void verifica_precionado()
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
 }
 //Inciiar a Bomba e para ele apos um periodo
-void iniciar_bomba(int periodo,int tipo){
+int iniciar_bomba(int periodo,int tipo){
   //Para o Motor
   mp.setSpeed(0);
   //Liga a Bomba
@@ -77,6 +77,7 @@ void iniciar_bomba(int periodo,int tipo){
   }
   //Apos o For parar desliga a bomba
   digitalWrite(Rele_1, LOW);
+  return 1;
 }
 
 //Recursividade
@@ -92,18 +93,15 @@ void loop()
   {
   case 1:
     //Situação 1
-    iniciar_bomba(Period_1, 1);
-    aux = 1;
+    aux = iniciar_bomba(Period_1, 1);
     break;
   case 2:
     //Situação 2
-    iniciar_bomba(Period_2, 2);
-    aux = 1;
+    aux = iniciar_bomba(Period_2, 2);
     break;
   case 3:
     //Situação 3
-    iniciar_bomba(Period_2, 3);
-    aux = 1;
+    aux = iniciar_bomba(Period_3, 3);
     break;
   default:
     //Situação Padrão
