@@ -13,26 +13,25 @@ void loop() {
 #define Chave_2 4
 #define Chave_3 2
 #define Rele_1 12
+#define Passos 32
 
-#define period_1 3000
-#define period_2 9000
-#define period_3 12000
+#define Period_1 3000
+#define Period_2 9000
+#define Period_3 12000
 
-int passos = 32; //OLD - QUANTOS PASSOS O MOTOR É CAPAZ DE DAR POR VOLTA
+//Declarar variaveis globais
+countint aux = 0;
 int i = 0;
 unsigned long time_now = 0;
 
-Stepper mp(passos, 8, 9, 10, 11); // OLD - ???
-
-//Declarar variavel global
-countint aux = 0;
+Stepper mp(Passos, 8, 9, 10, 11); // OLD - ???
 
 //Startup
 void setup()
 {
   pinMode(Rele_1, OUTPUT);
   digitalWrite(Rele_1, LOW);
-  mp.setSpeed(5); // VELOCIDADE DO MOTOR EM RPM
+  mp.setSpeed(5); // OLD - VELOCIDADE DO MOTOR EM RPM
   pinMode(Chave_1, INPUT_PULLUP);
   pinMode(Chave_2, INPUT_PULLUP);
   pinMode(Chave_3, INPUT_PULLUP);
@@ -41,6 +40,7 @@ void setup()
 //Função para Verificar Sensores
 int verificar_sensores(int aux)
 {
+  //Usa o codicionador para determinar o estado das chaves e retornar o valor da situação
   return (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 1 : (
          (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 2 : (
          (aux == 0 && digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == LOW) ? 3 : 0)
@@ -50,6 +50,33 @@ int verificar_sensores(int aux)
 void verifica_precionado()
 {
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
+}
+//Inciiar a Bomba e para ele apos um periodo
+void iniciar_bomba(int periodo,int tipo){
+  //Para o Motor
+  mp.setSpeed(0);
+  //Liga a Bomba
+  digitalWrite(Rele_1, HIGH);
+  //Seta variavel auxiliar
+  i = 0;
+  for (;;)
+  {
+    //Inicia Loop para aguardar encher
+    if (millis() > time_now + periodo)
+    {
+      //Para o loop e mostra msg de finalizado
+      time_now = millis();
+      Serial.println("Finalizando situação "+tipo);
+      break;
+    }
+    //Usa variavel auxiliar para mostra a menssagem de enchendo apenas 1 vez
+    if (i == 0){
+      i = 1;
+      Serial.println("Enchendo o Copo na situação "+tipo+"\n");
+    }
+  }
+  //Apos o For parar desliga a bomba
+  digitalWrite(Rele_1, LOW);
 }
 
 //Recursividade
@@ -65,59 +92,17 @@ void loop()
   {
   case 1:
     //Situação 1
-    mp.setSpeed(0);
-    digitalWrite(Rele_1, HIGH);
-    i = 0;
-    for(;;){
-      if(millis() > time_now + period_1){
-              time_now = millis();
-              Serial.println("Finalizando situação 1");
-              break;
-          }
-      if(i==0){
-        i = 1;
-        Serial.println("Enchendo o Copo na situação 1\n");
-      }
-    }
-    digitalWrite(Rele_1, LOW);
+    iniciar_bomba(Period_1, 1);
     aux = 1;
     break;
   case 2:
     //Situação 2
-    mp.setSpeed(0);
-    digitalWrite(Rele_1, HIGH);
-    i = 0;
-    for(;;){
-      if(millis() > time_now + period_2){
-              time_now = millis();
-              Serial.println("Finalizando situação 2");
-              break;
-          }
-      if(i==0){
-        i = 1;
-        Serial.println("Enchendo o Copo na situação 2\n");
-      }
-    }
-    digitalWrite(Rele_1, LOW);
+    iniciar_bomba(Period_2, 2);
     aux = 1;
     break;
   case 3:
     //Situação 3
-    mp.setSpeed(0);
-    digitalWrite(Rele_1, HIGH);
-    i = 0;
-    for(;;){
-      if(millis() > time_now + period_3){
-              time_now = millis();
-              Serial.println("Finalizando situação 3");
-              break;
-          }
-      if(i==0){
-        i = 1;
-        Serial.println("Enchendo o Copo na situação 3\n");
-      }
-    }
-    digitalWrite(Rele_1, LOW);
+    iniciar_bomba(Period_2, 2);
     aux = 1;
     break;
   default:
