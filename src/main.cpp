@@ -15,6 +15,8 @@ void loop() {
 #define Rele_1 12
 
 int passos = 32; //OLD - QUANTOS PASSOS O MOTOR É CAPAZ DE DAR POR VOLTA
+unsigned long time_now = 0;
+int period = 3000;
 
 Stepper mp(passos, 8, 9, 10, 11); // OLD - ???
 
@@ -62,7 +64,12 @@ void loop()
     //mp.step(0);
     mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
-    delay(3000);
+    for(;;){
+      if(millis() > time_now + period){
+              time_now = millis();
+              Serial.println("Hello");
+          }
+    }
     digitalWrite(Rele_1, LOW);
     aux = 1;
     break;
