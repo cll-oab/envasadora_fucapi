@@ -51,7 +51,7 @@ void loop()
 {
   mp.step(1); // OLD - PASSOS QUE O MOTOR VAI DAR
 
-  aux = verifica_precionado();
+  if(aux == 1)aux = verifica_precionado();
 
   //Definir Casos de ação do ambinte
   switch (verificar_sensores(aux))
@@ -62,6 +62,7 @@ void loop()
     digitalWrite(Rele_1, HIGH);
     delay(3000);
     digitalWrite(Rele_1, LOW);
+    aux = 1;
     break;
   case 2:
     //Situação 2
@@ -69,6 +70,7 @@ void loop()
     digitalWrite(Rele_1, HIGH);
     delay(9000);
     digitalWrite(Rele_1, LOW);
+    aux = 1;
     break;
   case 3:
     //Situação 3
@@ -76,6 +78,7 @@ void loop()
     digitalWrite(Rele_1, HIGH);
     delay(9000);
     digitalWrite(Rele_1, LOW);
+    aux = 1;
     break;
   default:
     //Situação Padrão
