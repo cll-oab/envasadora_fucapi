@@ -1,14 +1,6 @@
 #include <Arduino.h>
 #include <Stepper.h> // OLD - Declarãção de biblioteca base placa controladora
 
-void setup() {
-  // put your setup code here, to run once:
-}
-
-void loop() {
-  // put your main code here, to run repeatedly:
-}
-
 #define Chave_1 7
 #define Chave_2 4
 #define Chave_3 2
