@@ -13,7 +13,7 @@
 #define Period_3 12000
 
 //Declarar variaveis globais
-countint aux = 0;
+int aux = 0;
 int i = 0;
 unsigned long time_now = 0;
 
@@ -59,13 +59,13 @@ int iniciar_bomba(int periodo,int tipo){
     {
       //Para o loop e mostra msg de finalizado
       time_now = millis();
-      Serial.println("Finalizando situação "+tipo);
+      Serial.println("Finalizando situação ".tipo);
       break;
     }
     //Usa variavel auxiliar para mostra a menssagem de enchendo apenas 1 vez
     if (i == 0){
       i = 1;
-      Serial.println("Enchendo o Copo na situação "+tipo+"\n");
+      Serial.println("Enchendo o Copo na situação ".tipo."\n");
     }
   }
   //Apos o For parar desliga a bomba
@@ -79,8 +79,9 @@ void loop()
   mp.step(11); // OLD - PASSOS QUE O MOTOR VAI DAR
   mp.setSpeed(Speed);
 
-  if(aux == 1)aux = verifica_precionado();
-
+  if(aux == 1){
+    aux = verifica_precionado();
+  }
   //Definir Casos de ação do ambinte
   switch (verificar_sensores(aux))
   {
