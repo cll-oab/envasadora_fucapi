@@ -26,7 +26,7 @@ void setup()
 {
   pinMode(Rele_1, OUTPUT);
   digitalWrite(Rele_1, LOW);
-  mp.setSpeed(500); // VELOCIDADE DO MOTOR EM RPM
+  mp.setSpeed(5); // VELOCIDADE DO MOTOR EM RPM
   pinMode(Chave_1, INPUT_PULLUP);
   pinMode(Chave_2, INPUT_PULLUP);
   pinMode(Chave_3, INPUT_PULLUP);
@@ -49,7 +49,8 @@ void verifica_precionado()
 //Recursividade
 void loop()
 {
-  mp.step(5); // OLD - PASSOS QUE O MOTOR VAI DAR
+  mp.step(12); // OLD - PASSOS QUE O MOTOR VAI DAR
+  mp.setSpeed(5);
 
   if(aux == 1)aux = verifica_precionado();
 
@@ -58,7 +59,8 @@ void loop()
   {
   case 1:
     //Situação 1
-    mp.step(0);
+    //mp.step(0);
+    mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     delay(3000);
     digitalWrite(Rele_1, LOW);
@@ -66,7 +68,8 @@ void loop()
     break;
   case 2:
     //Situação 2
-    mp.step(0);
+    //mp.step(0);
+    mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     delay(9000);
     digitalWrite(Rele_1, LOW);
@@ -74,7 +77,8 @@ void loop()
     break;
   case 3:
     //Situação 3
-    mp.step(0);
+    //mp.step(0);
+    mp.setSpeed(0);
     digitalWrite(Rele_1, HIGH);
     delay(9000);
     digitalWrite(Rele_1, LOW);
@@ -82,7 +86,8 @@ void loop()
     break;
   default:
     //Situação Padrão
-    mp.step(5);
+    mp.step(1);
+    mp.setSpeed(5);
     digitalWrite(Rele_1, LOW);
   }
 }
