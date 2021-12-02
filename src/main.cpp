@@ -11,9 +11,12 @@
 #define Period_2 9000
 #define Period_3 12000
 #define Posicao_encher 1000
+#define Copos 9
+
 //Declarar variaveis globais
 int aux = 0;
 int i = 0;
+int qtd = 0;
 
 
 
@@ -101,6 +104,8 @@ void printerReturn(int aux){
 //Recursividade
 void loop()
 {
+  if(qtd < Copos){
+    //IF QTD
   if(Serial.available()>0)
   {
     int serialValue = Serial.read();
@@ -124,20 +129,21 @@ void loop()
     if(verificar_sensores(aux)!= 1){
       break;
     }
-   
    Serial.println("SITU 1");
-  
-  aux = iniciar_bomba(Period_1, 1);
+   aux = iniciar_bomba(Period_1, 1);
+      qtd++;
     break;
   case 2:
     //Situação 2
     Serial.println("SITU 2");
    aux = iniciar_bomba(Period_2, 2);
+      qtd++;
     break;
   case 3:
     //Situação 3
     Serial.println("SITU 3");
     aux = iniciar_bomba(Period_3, 3);
+      qtd++;
     break;
   default:
     //Situação Padrão
@@ -146,4 +152,6 @@ void loop()
    }
   }
  }
+//Fim if QTD 
+}
 }
