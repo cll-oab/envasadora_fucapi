@@ -73,9 +73,40 @@ int iniciar_bomba(int periodo,int tipo){
   return 1;
 }
 
+void printerReturn(int aux){
+ switch(aux){
+   case '0':
+     Serial.println("SITUAÇÃO 1 DETECTADA");
+   break;
+  case '1':
+     Serial.println("SITUAÇÃO 2 DETECTADA");
+   break;
+  case '3':
+     Serial.println("SITUAÇÃO 3 DETECTADA");
+   break; 
+  case '4':
+     Serial.println("INICIANDO A BOMBA");
+   break; 
+  case '5':
+     Serial.println("ENCHENDO O FRASCO");
+   break;
+  case '6':
+     Serial.println("SITUAÇÃO FINALIZADA");
+   break;    
+   default:
+     Serial.printl("VALOR NÃO DEFINIDO");
+ }
+}
+
 //Recursividade
 void loop()
 {
+  if(Serial.available()>0)
+  {
+    int serialValue = Serial.read();
+    int serial = 0;
+   switch(serialValue)
+   {
   Serial.println(verificar_sensores(aux));
   mp.step(1); // OLD - PASSOS QUE O MOTOR VAI DAR
   mp.setSpeed(Speed);
@@ -112,5 +143,7 @@ void loop()
     //Situação Padrão
     mp.setSpeed(Speed);
     digitalWrite(Rele_1, LOW);
+   }
   }
+ }
 }
