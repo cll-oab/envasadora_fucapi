@@ -67,16 +67,12 @@ int iniciar_bomba(int periodo,int tipo){
    delay(periodo);
    Serial.println("Finalizando situação ");
    Serial.println(tipo);
-  
-   
-   
-  
   //Apos o For parar desliga a bomba
   digitalWrite(Rele_1, LOW);
   return 1;
 }
 
-void printerReturn(int aux){
+/*void printerReturn(int aux){
  switch(aux){
    case '0':
      Serial.println("SITUAÇÃO 1 DETECTADA");
@@ -99,7 +95,7 @@ void printerReturn(int aux){
    default:
      Serial.printl("VALOR NÃO DEFINIDO");
  }
-}
+}*/
 
 //Recursividade
 void loop()
@@ -129,22 +125,31 @@ void loop()
     if(verificar_sensores(aux)!= 1){
       break;
     }
-   Serial.println("SITU 1");
+   Serial.println("SITUACAO_1");
    aux = iniciar_bomba(Period_1, 1);
       qtd++;
     break;
   case 2:
     //Situação 2
-    Serial.println("SITU 2");
+    Serial.println("SITUACAO_2");
    aux = iniciar_bomba(Period_2, 2);
       qtd++;
     break;
   case 3:
     //Situação 3
-    Serial.println("SITU 3");
+    Serial.println("SITUACAO_3");
     aux = iniciar_bomba(Period_3, 3);
       qtd++;
     break;
+  case 4:
+    Serial.println("REALOCANDO_FRASCO");
+    break;
+  case 5:
+    Serial.println("PREENCHENDO_FRASCO");
+    break;
+  case 6:
+    Serial.println("FINALIZADO");
+    break;  
   default:
     //Situação Padrão
     mp.setSpeed(Speed);
