@@ -114,9 +114,6 @@ void loop()
    switch(serialValue)
    {
   Serial.println(verificar_sensores(aux));
-  mp.step(1); // OLD - PASSOS QUE O MOTOR VAI DAR
-  mp.setSpeed(Speed);
-
   if(aux == 1){
     Serial.println("Alguma Coisa Precionando os Botões");
     aux = verifica_precionado();
@@ -157,7 +154,6 @@ void loop()
     break;  
   default:
     //Situação Padrão
-    mp.setSpeed(Speed);
     digitalWrite(Rele_1, LOW);
    }
   }
