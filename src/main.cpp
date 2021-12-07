@@ -1,11 +1,12 @@
 #include <Arduino.h>
-#include <Stepper.h> // OLD - Declarãção de biblioteca base placa controladora
+
 #define Chave_1 2
 #define Chave_2 4
 #define Chave_3 7
 #define Rele_1 12
-#define Passos 32
-#define Speed 500
+#define IN1_Motor = 8
+#define IN1_Motor = 9
+#define Velocidade_Motor = 10
 
 #define Period_1 3000
 #define Period_2 9000
@@ -16,11 +17,8 @@
 //Declarar variaveis globais
 int aux = 0;
 int i = 0;
-int qtd = 0;
-
-
-
-Stepper mp(Passos, 8, 9, 10, 11); // OLD - ???
+int qtd = 0; // variavel auxiliar para contagem de copos preenchidos
+int velocidade = 0; //Controlar a velocidade do motor
 
 //Startup
 void setup()
@@ -28,10 +26,12 @@ void setup()
   Serial.begin(9600);
   pinMode(Rele_1, OUTPUT);
   digitalWrite(Rele_1, LOW);
-  mp.setSpeed(Speed); // OLD - VELOCIDADE DO MOTOR EM RPM
   pinMode(Chave_1, INPUT_PULLUP);
   pinMode(Chave_2, INPUT_PULLUP);
   pinMode(Chave_3, INPUT_PULLUP);
+  pinMode(IN1_Motor, OUTPUT);
+  pinMode(IN2_Motor, OUTPUT);
+  pinMode(Velocidade_Motor, OUTPUT);
 }
 
 //Função para Verificar Sensores
@@ -54,10 +54,11 @@ int iniciar_bomba(int periodo,int tipo){
   
   Serial.println("INDO PARA A POSICAO DE ENCHER O COPO");
   delay(Posicao_encher); // indo para posicao correta para encher o copo
+  //Para o motor
+  digitalWrite(IN1_Motor, HIGH);
+  digitalWrite(IN2_Motor, HIGH);
   //INICIANDO BOMBA
   Serial.println("INICIANDO BOMBA");
-  
-  mp.setSpeed(1); //Para o Motor
   //Liga a Bomba
   digitalWrite(Rele_1, HIGH);
  //Seta variavel auxiliar
@@ -102,6 +103,10 @@ void loop()
 {
   if(qtd < Copos){
     //IF QTD
+    // Gira o motor em sentido horario
+    digitalWrite(IN1_Motor, HIGH);
+    digitalWrite(IN1_Motor, LOW);
+    
   if(Serial.available()>0)
   {
     int serialValue = Serial.read();
