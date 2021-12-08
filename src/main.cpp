@@ -49,6 +49,11 @@ int verifica_precionado()
 {
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
 }
+//Verifica reativação
+int verifica_ligar()
+{
+  return (digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == HIGH) ? 1 : 0;
+}
 //Inciiar a Bomba e para ele apos um periodo
 int iniciar_bomba(int periodo,int tipo){
   
@@ -74,8 +79,9 @@ int iniciar_bomba(int periodo,int tipo){
 }
 
 void loop()
-{
-  if (Serial.available() > 0)
+{ 
+  //Verifica se o serial está ativo no computador e verifica se QTD atingiu o limite
+  if (Serial.available() > 0 && qtd <= Copos)
   {
     int serialValue = Serial.read();
     int aux=0;
@@ -135,7 +141,16 @@ void loop()
     serialValue = 0;
     digitalWrite(Rele_1, LOW);
     }
-   } // FIM DO SWITCH serialValue
-  } // FIM do IF Serial.value
-//Fim if QTD 
+    // FIM DO SWITCH serialValue
+   }
+  // FIM do IF Serial.value & QTD
+  }else if(Serial.available() > 0){
+    //Possibilita a reativação do QTD
+    if(verifica_ligar()){
+      //Zera QTD
+      qtd = 0;
+      Serial.println("Zerando dados, recomeçando...");
+      delay(200);
+    }
+  }
 }
