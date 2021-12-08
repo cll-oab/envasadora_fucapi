@@ -12,6 +12,7 @@
 #define Period_2 9000
 #define Period_3 12000
 #define Posicao_encher 1000
+
 #define Copos 9
 
 //Declarar variaveis globais
@@ -101,26 +102,26 @@ int iniciar_bomba(int periodo,int tipo){
 //Recursividade
 void loop()
 {
-  if(qtd < Copos){
-    //IF QTD
+  //Efetua parada do loop (não testei)
+  if(qtd >= Copos)break;
+
     // Gira o motor em sentido horario
     digitalWrite(IN1_Motor, HIGH);
     digitalWrite(IN1_Motor, LOW);
     
-  if(Serial.available()>0)
-  {
-    int serialValue = Serial.read();
-    int serial = 0;
-   switch(serialValue)
-   {
+    //int serialValue = Serial.read();
+    //int serial = 0;
+    
   Serial.println(verificar_sensores(aux));
+
+  //Verificar Precionado
   if(aux == 1){
     Serial.println("Alguma Coisa Precionando os Botões");
     aux = verifica_precionado();
   }
+
   //Definir Casos de ação do ambinte
-  switch (verificar_sensores(aux))
-  {
+  switch (verificar_sensores(aux)) {
   case 1:
   delay(500);
     //Situação 1
@@ -156,8 +157,6 @@ void loop()
     //Situação Padrão
     digitalWrite(Rele_1, LOW);
    }
-  }
- }
+
 //Fim if QTD 
-}
 }
