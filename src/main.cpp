@@ -80,21 +80,15 @@ int iniciar_bomba(int periodo,int tipo){
 
 void loop()
 { 
-  //Verifica se o serial está ativo no computador e verifica se QTD atingiu o limite
-  if (Serial.available() > 0 && qtd <= Copos)
-  {
-    int serialValue = Serial.read();
-    int aux=0;
-    switch(serialValue)
-    {
-      foo:
-    // Gira o motor em sentido horario
     digitalWrite(IN1_Motor, HIGH);
     digitalWrite(IN1_Motor, LOW);
     
-    //int serialValue = Serial.read();
-    //int serial = 0;
-    
+  //Verifica se o serial está ativo no computador e verifica se QTD atingiu o limite
+  if (qtd <= Copos)
+  {
+    int aux=0;
+    // Gira o motor em sentido horario
+ 
   Serial.println(verificar_sensores(aux));
 
   //Verificar Precionado
@@ -138,13 +132,13 @@ void loop()
     break;  
   default:
     //Situação Padrão 
-    serialValue = 0;
+  
     digitalWrite(Rele_1, LOW);
     }
     // FIM DO SWITCH serialValue
    }
   // FIM do IF Serial.value & QTD
-  }else if(Serial.available() > 0){
+  else{
     //Possibilita a reativação do QTD
     if(verifica_ligar()){
       //Zera QTD
