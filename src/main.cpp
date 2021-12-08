@@ -49,11 +49,6 @@ int verifica_precionado()
 {
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
 }
-//Verifica reativação
-int verifica_ligar()
-{
-  return (digitalRead(Chave_1) == HIGH && digitalRead(Chave_2) == LOW && digitalRead(Chave_3) == HIGH) ? 1 : 0;
-}
 //Inciiar a Bomba e para ele apos um periodo
 int iniciar_bomba(int periodo,int tipo){
   
@@ -79,16 +74,8 @@ int iniciar_bomba(int periodo,int tipo){
 }
 
 void loop()
-{ 
-    digitalWrite(IN1_Motor, HIGH);
-    digitalWrite(IN1_Motor, LOW);
-    
-  //Verifica se o serial está ativo no computador e verifica se QTD atingiu o limite
-  if (qtd <= Copos)
-  {
+{
     int aux=0;
-    // Gira o motor em sentido horario
- 
   Serial.println(verificar_sensores(aux));
 
   //Verificar Precionado
@@ -98,8 +85,9 @@ void loop()
   }
 
   //Definir Casos de ação do ambinte
-  switch (verificar_sensores(aux)) {
+  switch (verificar_sensores(aux)){
   case 1:
+   
   delay(500);
     //Situação 1
     if(verificar_sensores(aux)!= 1){
@@ -132,19 +120,9 @@ void loop()
     break;  
   default:
     //Situação Padrão 
-  
+   
     digitalWrite(Rele_1, LOW);
-    }
-    // FIM DO SWITCH serialValue
-   }
-  // FIM do IF Serial.value & QTD
-  else{
-    //Possibilita a reativação do QTD
-    if(verifica_ligar()){
-      //Zera QTD
-      qtd = 0;
-      Serial.println("Zerando dados, recomeçando...");
-      delay(200);
-    }
-  }
-}
+    
+   } // FIM DO SWITCH serialValue
+  } // FIM do IF Serial.value
+//Fim if QTD 
