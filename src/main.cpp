@@ -1,12 +1,11 @@
 #include <Arduino.h>
-
 #define Chave_1 2
 #define Chave_2 4
 #define Chave_3 7
 #define Rele_1 12
-#define IN1_Motor = 8
-#define IN1_Motor = 9
-#define Velocidade_Motor = 10
+#define IN1_Motor 8
+#define IN2_Motor 9
+#define Velocidade_Motor 10
 
 #define Period_1 3000
 #define Period_2 9000
@@ -74,37 +73,15 @@ int iniciar_bomba(int periodo,int tipo){
   return 1;
 }
 
-/*void printerReturn(int aux){
- switch(aux){
-   case '0':
-     Serial.println("SITUAÇÃO 1 DETECTADA");
-   break;
-  case '1':
-     Serial.println("SITUAÇÃO 2 DETECTADA");
-   break;
-  case '3':
-     Serial.println("SITUAÇÃO 3 DETECTADA");
-   break; 
-  case '4':
-     Serial.println("INICIANDO A BOMBA");
-   break; 
-  case '5':
-     Serial.println("ENCHENDO O FRASCO");
-   break;
-  case '6':
-     Serial.println("SITUAÇÃO FINALIZADA");
-   break;    
-   default:
-     Serial.printl("VALOR NÃO DEFINIDO");
- }
-}*/
-
-//Recursividade
 void loop()
 {
-  //Efetua parada do loop (não testei)
-  if(qtd >= Copos)break;
-
+  if (Serial.available() > 0)
+  {
+    int serialValue = Serial.read();
+    int aux=0;
+    switch(serialValue)
+    {
+      foo:
     // Gira o motor em sentido horario
     digitalWrite(IN1_Motor, HIGH);
     digitalWrite(IN1_Motor, LOW);
@@ -154,9 +131,11 @@ void loop()
     Serial.println("FINALIZADO");
     break;  
   default:
-    //Situação Padrão
+    //Situação Padrão 
+    serialValue = 0;
     digitalWrite(Rele_1, LOW);
-   }
-
+    }
+   } // FIM DO SWITCH serialValue
+  } // FIM do IF Serial.value
 //Fim if QTD 
 }
