@@ -12,7 +12,7 @@
 #define Period_3 12000
 #define Posicao_encher 1000
 
-#define Copos 9
+#define Copos 8
 
 //Declarar variaveis globais
 int aux = 0;
