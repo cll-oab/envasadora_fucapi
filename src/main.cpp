@@ -49,7 +49,7 @@ int verifica_precionado()
 {
   return (digitalRead(Chave_1) == HIGH || digitalRead(Chave_2) == HIGH || digitalRead(Chave_3) == HIGH) ? 1 : 0;
 }
-//Inciiar a Bomba e para ele apos um periodo
+//Incia a Bomba e para ele apos um periodo
 int iniciar_bomba(int periodo,int tipo){
   
   Serial.println("INDO PARA A POSICAO DE ENCHER O COPO");
@@ -61,8 +61,7 @@ int iniciar_bomba(int periodo,int tipo){
   Serial.println("INICIANDO BOMBA");
   //Liga a Bomba
   digitalWrite(Rele_1, HIGH);
- //Seta variavel auxiliar
-
+ //Seta variavel auxiliar como retorno
    Serial.println("Enchendo o Copo na situação");
    Serial.println(tipo);
    delay(periodo);
@@ -109,20 +108,9 @@ void loop()
     aux = iniciar_bomba(Period_3, 3);
       qtd++;
     break;
-  case 4:
-    Serial.println("REALOCANDO_FRASCO");
-    break;
-  case 5:
-    Serial.println("PREENCHENDO_FRASCO");
-    break;
-  case 6:
-    Serial.println("FINALIZADO");
-    break;  
   default:
     //Situação Padrão 
-   
     digitalWrite(Rele_1, LOW);
-    
    } // FIM DO SWITCH serialValue
   } // FIM do IF Serial.value
 //Fim if QTD 
